@@ -255,6 +255,10 @@ class PlayerViewController: UIViewController {
                 artistNameLabel.text = ViewController.songsModel.artist[ViewController.songIndex!]
                 ViewController.player.play()
                 musicProgressSlider.maximumValue = Float(ViewController.player.duration)
+                
+                let pauseImage = UIImage(systemName: "pause.fill", withConfiguration: largePlayConfig)
+                playPauseButton.setImage(pauseImage, for: .normal)
+                
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePlayerSmallView"), object: nil)
             }
             else {
@@ -266,28 +270,29 @@ class PlayerViewController: UIViewController {
     }
 
     @objc private func previousSong() {
-        if ViewController.player.isPlaying == true {
-            if ViewController.songIndex != nil {
-                if ViewController.songIndex! != 0 {
+        if ViewController.songIndex != nil {
+            if ViewController.songIndex! != 0 {
 
-                    ViewController.player.stop()
-                    ViewController.songIndex! -= 1
-                    ViewController.chosenSong = ViewController.songsModel.songs[ViewController.songIndex!]
-                    ViewController.setupPlayer()
+                ViewController.player.stop()
+                ViewController.songIndex! -= 1
+                ViewController.chosenSong = ViewController.songsModel.songs[ViewController.songIndex!]
+                ViewController.setupPlayer()
 
-                    PlayerViewController.albumAtwork = ViewController.songsModel.albumImage[ViewController.songIndex!]
-                    PlayerViewController.songName = ViewController.songsModel.songName[ViewController.songIndex!]
-                    PlayerViewController.artistName = ViewController.songsModel.artist[ViewController.songIndex!]
+                PlayerViewController.albumAtwork = ViewController.songsModel.albumImage[ViewController.songIndex!]
+                PlayerViewController.songName = ViewController.songsModel.songName[ViewController.songIndex!]
+                PlayerViewController.artistName = ViewController.songsModel.artist[ViewController.songIndex!]
 
-                    albumImageView.image = ViewController.songsModel.albumImage[ViewController.songIndex!]
-                    musicNameLabel.text = ViewController.songsModel.songName[ViewController.songIndex!]
-                    artistNameLabel.text = ViewController.songsModel.artist[ViewController.songIndex!]
-                    musicProgressSlider.maximumValue = Float(ViewController.player.duration)
+                albumImageView.image = ViewController.songsModel.albumImage[ViewController.songIndex!]
+                musicNameLabel.text = ViewController.songsModel.songName[ViewController.songIndex!]
+                artistNameLabel.text = ViewController.songsModel.artist[ViewController.songIndex!]
+                musicProgressSlider.maximumValue = Float(ViewController.player.duration)
+                
+                let pauseImage = UIImage(systemName: "pause.fill", withConfiguration: largePlayConfig)
+                playPauseButton.setImage(pauseImage, for: .normal)
 
-                    ViewController.player.play()
+                ViewController.player.play()
 
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePlayerSmallView"), object: nil)
-                }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePlayerSmallView"), object: nil)
             }
         }
     }
